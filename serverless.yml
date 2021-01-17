@@ -1,0 +1,22 @@
+service: app-example
+
+provider:
+    name: aws
+    region: eu-central-1
+    runtime: nodejs12.x
+    deploymentBucket:
+        name: nyholm-lambda-applications
+    deploymentPrefix: app-example/${sls:instanceId}
+functions:
+    index:
+        handler: src/handler.hello
+        description: ''
+        timeout: 28
+        events:
+            -   http:
+                    path: /
+                    method: get
+
+package:
+    exclude:
+        - 'node_modules/**'
